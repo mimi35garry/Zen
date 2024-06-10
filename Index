@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jouer un son après un délai</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        button, input {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lecture d'un son avec délai</h1>
+    <div>
+        <label for="timer1">Délai 1 (secondes) :</label>
+        <input type="number" id="timer1" value="5">
+    </div>
+    <div>
+        <label for="timer2">Délai 2 (secondes) :</label>
+        <input type="number" id="timer2" value="10">
+    </div>
+    <button id="playButton">Lecture</button>
+    <button id="stopButton">Arrêt</button>
+
+    <audio id="audio" src="son.mp3"></audio>
+
+    <script>
+        const audio = document.getElementById('audio');
+        let timer1Id, timer2Id;
+
+        document.getElementById('playButton').addEventListener('click', () => {
+            const x = parseInt(document.getElementById('timer1').value);
+            const y = parseInt(document.getElementById('timer2').value);
+
+            // Jouer le son après x secondes
+            timer1Id = setTimeout(() => {
+                audio.play();
+            }, x * 1000);
+
+            // Jouer le son après y secondes
+            timer2Id = setTimeout(() => {
+                audio.play();
+            }, y * 1000);
+        });
+
+        document.getElementById('stopButton').addEventListener('click', () => {
+            clearTimeout(timer1Id);
+            clearTimeout(timer2Id);
+            audio.pause();
+            audio.currentTime = 0;
+        });
+    </script>
+</body>
+</html>
